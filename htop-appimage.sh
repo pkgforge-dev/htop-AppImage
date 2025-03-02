@@ -9,7 +9,7 @@ APP=htop
 APPDIR="$APP".AppDir
 SITE="htop-dev/htop"
 UPINFO="gh-releases-zsync|$(echo $GITHUB_REPOSITORY | tr '/' '|')|continuous|*$ARCH.AppImage.zsync"
-APPIMAGETOOL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-$ARCH.AppImage"
+APPIMAGETOOL="https://github.com/pkgforge-dev/appimagetool-uruntime/releases/download/continuous/appimagetool-$ARCH.AppImage"
 
 # CREATE DIRECTORIES
 mkdir -p ./"$APP"/AppDir
