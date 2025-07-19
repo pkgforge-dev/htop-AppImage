@@ -15,25 +15,24 @@ mkdir -p ./AppDir
 cd ./AppDir
 
 # DOWNLOAD AND BUILD HTOP
-CURRENTDIR="$(dirname "$(readlink -f "$0")")" # DO NOT MOVE THIS
 HTOP_URL=$(wget -q https://api.github.com/repos/htop-dev/htop/releases -O - \
 	| sed 's/[()",{} ]/\n/g' | grep -oi 'https.*releases.*htop.*tar.xz' | head -1)
 
-wget "$HTOP_URL"
-tar fx ./*.tar.*
+wget "$HTOP_URL" -O ./htop.tar.xz
 
-cd ./htop*
-./autogen.sh
-./configure --prefix="$CURRENTDIR" --enable-sensors --enable-static
-make
-make install
-cd ..
+tar fx ./htop.tar.xz && (
+	cd ./htop*
+	./autogen.sh
+	./configure --prefix="$(readlink -f ../)" --enable-sensors --enable-static
+	make
+	make install
+)
 rm -rf ./htop* ./*.tar.*
 
 # PREPARE APPIMAGE
-cp -v ./share/applications/*.desktop ./
-cp -v ./share/pixmaps/*              ./htop.png
-cp -v ./share/pixmaps/*              ./.DirIcon
+cp -v ./share/applications/htop.desktop ./
+cp -v ./share/pixmaps/htop.png          ./
+cp -v ./share/pixmaps/htop.png          ./.DirIcon
 
 ln -s ./bin/htop ./AppRun
 chmod +x ./bin/htop
